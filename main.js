@@ -7,7 +7,13 @@ async function updateMsaIdMax() {
 
   try {
     const msaCount = await getMsaCount();
-    msaCountMax.innerHTML = msaCount;
+    const current = msaCountMax.innerHTML;
+    if (current !== msaCount) {
+        msaCountMax.classList.add("fadeOut");
+        await new Promise((x) => setTimeout(x, 1100));
+        msaCountMax.innerHTML = msaCount;
+        msaCountMax.classList.remove("fadeOut");
+    }
   } catch (e) {
     console.error(e);
   }
