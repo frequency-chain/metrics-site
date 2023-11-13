@@ -9,10 +9,10 @@ async function updateMsaIdMax() {
     const msaCount = await getMsaCount();
     const current = msaCountMax.innerHTML;
     if (current !== msaCount) {
-        msaCountMax.classList.add("fadeOut");
-        await new Promise((x) => setTimeout(x, 1100));
-        msaCountMax.innerHTML = msaCount;
-        msaCountMax.classList.remove("fadeOut");
+      msaCountMax.classList.add('fadeOut');
+      await new Promise((x) => setTimeout(x, 1100));
+      msaCountMax.innerHTML = msaCount;
+      msaCountMax.classList.remove('fadeOut');
     }
   } catch (e) {
     console.error(e);
@@ -32,7 +32,7 @@ async function getMsaCount() {
   const options = {
     method: 'POST',
     // mode: "no-cors",
-    cache: "no-cache",
+    cache: 'no-cache',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -54,10 +54,29 @@ function hexToBigEndian(input) {
 
 function startPresentation() {
   document.getElementById('fullscreen').requestFullscreen();
+  document.getElementById('start').classList.add('inactive');
+}
+
+function autoHideFullscreenButton(idleMs) {
+  let idleTimer = null;
+  let idleState = false;
+  const startButton = document.getElementById('start');
+  document.addEventListener('mousemove', () => {
+    clearTimeout(idleTimer);
+    if (idleState == true && !document.fullscreen) {
+      startButton.classList.remove('inactive');
+    }
+    idleState = false;
+    idleTimer = setTimeout(function () {
+      startButton.classList.add('inactive');
+      idleState = true;
+    }, idleMs);
+  });
 }
 
 function init() {
   updateMsaIdMax();
+  autoHideFullscreenButton(5000);
   document.getElementById('start').addEventListener('click', startPresentation);
 }
 
