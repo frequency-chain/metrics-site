@@ -51,6 +51,7 @@
       #moon {
         margin-top: 4vh;
         width: 40vh;
+        max-width: 100%;
       }
       #moon > svg {
         width: 100%;
@@ -62,7 +63,7 @@
         line-height: 1;
         width: 80%;
         text-align: center;
-        font-size: 25vh;
+        font-size: min(25vh, 20vw);
         color: white;
         font-family: Poppins, sans-serif;
       }
@@ -74,13 +75,14 @@
         color: white;
         font-family: Poppins, sans-serif;
         text-align: center;
-        font-size: 2.5vh;
-        margin: 0 0 2vh 0;
+        font-size: min(2.5vh, 3vw);
+        margin: 0 0 min(2vh, 2vw) 0;
       }
       #logo {
         width: 36vh;
         text-align: center;
-        margin-bottom: 4vh;
+        margin: 0 0 4vh;
+        max-width: 96%;
       }
       #logo > svg {
         width: 100%;
