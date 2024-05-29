@@ -1,17 +1,21 @@
-export const providerUriList = ["https://1.rpc.frequency.xyz"];
+const providerUriList = ["https://1.rpc.frequency.xyz"];
+
+let allow_metric_updates = true;
 
 async function updateNumber(el, valueFn, updateMs) {
-  try {
-    const msaCount = await valueFn();
-    const current = el.innerHTML;
-    if (current !== msaCount) {
-      el.classList.add("fadeOut");
-      await new Promise((x) => setTimeout(x, 1100));
-      el.innerHTML = msaCount;
-      el.classList.remove("fadeOut");
+  if (allow_metric_updates) {
+    try {
+      const msaCount = await valueFn();
+      const current = el.innerHTML;
+      if (current !== msaCount) {
+        el.classList.add("fadeOut");
+        await new Promise((x) => setTimeout(x, 1100));
+        el.innerHTML = msaCount;
+        el.classList.remove("fadeOut");
+      }
+    } catch (e) {
+      console.error(e);
     }
-  } catch (e) {
-    console.error(e);
   }
   // Loop
   setTimeout(() => {
@@ -90,6 +94,11 @@ function init() {
   updateNumber(document.getElementById("graphCount"), getGraphCount, 24_000);
   autoHideFullscreenButton(2000);
   document.getElementById("start").addEventListener("click", startPresentation);
+
+  // Stop updating the metrics when hidden
+  addEventListener("visibilitychange", () => {
+    allow_metric_updates = !document.hidden;
+  });
 }
 
 init();
