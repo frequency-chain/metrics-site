@@ -1,14 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta charset="UTF-8" />
     <title>Frequency Metrics</title>
     <link rel="icon" type="image/x-icon" href="./favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
-    <link rel="manifest" href="./site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
+    <link rel="manifest" href="./site.webmanifest" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:700" />
 
     <style>
@@ -45,33 +45,47 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-items: center;
         justify-content: space-between;
       }
       #moon {
         margin-top: 4vh;
-        width: 40vh;
+        width: 30vh;
         max-width: 100%;
       }
       #moon > svg {
         width: 100%;
       }
-      #msaCountMax {
+
+      #metricGrid {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+      }
+      .metricBox {
+        flex: 1 1 40%;
+      }
+      .separator {
+        width: 100%;
+        margin: 0 20px;
+        width: 2px;
+        background-color: white;
+      }
+      .metricNumber {
         transition: opacity 1s;
         opacity: 1;
         margin: 0vh 0 1vh 0;
         line-height: 1;
-        width: 80%;
         text-align: center;
-        font-size: min(25vh, 20vw);
+        font-size: max(16px, min(25vh, 10vw));
         color: white;
         font-family: Poppins, sans-serif;
       }
-      #msaCountMax.fadeOut {
+      .metricNumber.fadeOut {
         transition: opacity 1s;
         opacity: 0;
       }
-      #subtext {
+      .subtext {
         color: white;
         font-family: Poppins, sans-serif;
         text-align: center;
@@ -86,6 +100,33 @@
       }
       #logo > svg {
         width: 100%;
+      }
+
+      @media (max-width: 800px) {
+        #fullscreen {
+          justify-content: start;
+        }
+        #metricGrid {
+          flex-direction: column;
+        }
+        #moon {
+          width: auto;
+        }
+        #moon > svg {
+          width: auto;
+          height: 25vmin;
+          margin: 0 auto;
+        }
+        .metricBox {
+          flex: 1;
+          width: 100%;
+        }
+
+        .separator {
+          width: 80%;
+          margin: 20px auto;
+          height: 2px;
+        }
       }
     </style>
   </head>
@@ -129,8 +170,17 @@
           />
         </svg>
       </div>
-      <h1 id="msaCountMax">Loading...</h1>
-      <div id="subtext">New User Activations</div>
+      <div id="metricGrid">
+        <div class="metricBox">
+          <h1 id="msaCount" class="metricNumber">···</h1>
+          <div class="subtext">New User Activations</div>
+        </div>
+        <div class="separator"></div>
+        <div class="metricBox">
+          <h1 id="graphCount" class="metricNumber">···</h1>
+          <div class="subtext">Graph Activations</div>
+        </div>
+      </div>
 
       <div id="logo">
         <svg width="536" height="80" viewBox="0 0 536 80" fill="none" xmlns="http://www.w3.org/2000/svg">
