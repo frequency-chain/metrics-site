@@ -107,7 +107,12 @@ async function initTotUsers() {
     }
 
     if (el.textContent !== display) {
+      // ← BEGIN FADE SEQUENCE
+      el.classList.add("fadeOut");
+      await new Promise(r => setTimeout(r, 1100));
       el.textContent = display;
+      el.classList.remove("fadeOut");
+      // ← END FADE SEQUENCE
     }
   }
 
