@@ -13,7 +13,7 @@
     <link rel="manifest" href="./site.webmanifest" />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Poppins:700"
+      href="https://fonts.googleapis.com/css?family=Poppins:400,700"
     />
 
     <style>
@@ -73,6 +73,7 @@
         line-height: 1;
         text-align: center;
         font-size: max(16px, min(25vh, 10vw));
+        padding-left: 2vw;                /* ← new left inset */
         color: white;
         font-family: Poppins, sans-serif;
       }
@@ -85,7 +86,13 @@
         font-family: Poppins, sans-serif;
         text-align: center;
         font-size: min(2.5vh, 3vw);
+        font-weight: 700;  /* bold */
         margin: 0 0 min(2vh, 2vw) 0;
+      }
+      /* make only the wrapped phrase non-bold */
+      .subtext-normal {
+        font-weight: 400;  /* bold */
+        font-size: min(2.5vh, 3vw);
       }
       #logo {
         width: 36vh;
@@ -113,23 +120,28 @@
         font-size: min(2.5vh, 3.0vw);
       }
 
-
       @media (max-width: 800px) {
         #fullscreen {
-          justify-content: start;
-        }
-        #metricGrid {
           flex-direction: column;
-        }
-        .metricBox {
-          flex: 1;
-          width: 100%;
+          align-items: center;
+          justify-content: flex-start;      /* anchor at top */
+          gap: min(2vh, 2vw);               /* uniform vertical spacing */
+          overflow-y: hidden;
+          padding: 2vh 0 2vh 0;
         }
 
-        .separator {
-          width: 80%;
-          margin: 20px auto;
-          height: 2px;
+        #metricGrid {
+          /* tighten gap below metrics */
+          margin-bottom: min(1vh, 1vw);
+        }
+        #totusersContainer {
+          /* small gap above totusers */
+          margin-top: min(12vh, 12vw);
+        }
+
+        /* if you need per‐box spacing */
+        .metricBox {
+          margin-bottom: min(1vh, 1vw);
         }
       }
     </style>
@@ -169,7 +181,9 @@
 
       <!-- Total Users Section -->
       <div id="totusersContainer">
-        <div class="subtext">Coming Soon to Mainnet: AT Protocol Content Feed</div>
+        <div class="subtext">Coming Soon to Mainnet:
+          <span class="subtext-normal">AT Protocol Content Feed</span> 
+        </div>
         <h1 id="totusersCount" class="metricNumber">···</h1>
         <div class="subtext">Testnet Users</div>
       </div>
