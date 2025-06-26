@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Frequency Metrics</title>
     <link rel="icon" type="image/x-icon" sizes="any" href="./favicon.ico" />
     <link
@@ -134,6 +135,11 @@
           /* tighten gap below metrics */
           margin-bottom: min(1vh, 1vw);
         }
+
+        .metricNumber {
+          font-size: max(16px, min(20vh, 8vw));
+        }
+
         #totusersContainer {
           /* small gap above totusers */
           margin-top: min(12vh, 12vw);
@@ -143,6 +149,12 @@
         .metricBox {
           margin-bottom: min(1vh, 1vw);
         }
+
+        /* Hide "Go Fullscreen" on mobile */
+        #start {
+          display: none;
+        }
+
       }
     </style>
   </head>
