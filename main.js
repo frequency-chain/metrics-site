@@ -89,14 +89,43 @@ function autoHideFullscreenButton(idleMs) {
   });
 }
 
-function init() {
-  updateNumber(document.getElementById("msaCount"), getMsaCount, 6_000);
-  updateNumber(document.getElementById("graphCount"), getGraphCount, 24_000);
-  autoHideFullscreenButton(2000);
-  document.getElementById("start").addEventListener("click", startPresentation);
+async function initTotUsers() {
+  const defaultValue = 7995797;
+  const el = document.getElementById("totusersCount");
+  if (!el) return;
 
-  // Stop updating the metrics when hidden
-  addEventListener("visibilitychange", () => {
+  async function refresh() {
+    let display;
+    try {
+      const resp = await fetch("https://freesky-portal.liberti.social/stats/totusers");
+      if (!resp.ok) throw "";
+      const totusers = await resp.json();
+      const n = Number(totusers) || defaultValue;
+      display = n.toLocaleString();
+    } catch {
+      display = defaultValue.toLocaleString();
+    }
+
+    if (el.textContent !== display) {
+      el.textContent = display;
+    }
+  }
+
+  await refresh();                   // first, right away
+  setInterval(refresh, 6000);       // then every 6 s
+}
+
+
+function init() {
+  initTotUsers();  
+
+  updateNumber(document.getElementById("msaCount"), getMsaCount, 6000);
+  updateNumber(document.getElementById("graphCount"), getGraphCount, 24000);
+
+  autoHideFullscreenButton(2000);
+  document.getElementById("start")
+          .addEventListener("click", startPresentation);
+  document.addEventListener("visibilitychange", () => {
     allow_metric_updates = !document.hidden;
   });
 }
