@@ -97,7 +97,7 @@ async function initTotUsers() {
   async function refresh() {
     let display;
     try {
-      const resp = await fetch("https://freesky-portal.liberti.social/stats/totusers");
+      const resp = await fetch("https://portal.atproto.projectliberty.io/stats/totusers");
       if (!resp.ok) throw "";
       const totusers = await resp.json();
       const n = Number(totusers) || defaultValue;
